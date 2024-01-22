@@ -80,10 +80,10 @@ const TabNavigator = () => {
               <CustomIcon
                 name="bell"
                 size={25}
-                color={
+                icon={<Bell size={25} color= {
                   focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
                 }
-                icon={<Bell />}
+                />}
               />
             ),
         }}></Tab.Screen>

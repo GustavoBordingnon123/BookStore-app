@@ -79,7 +79,11 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                   favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
                 }
                 size={FONTSIZE.size_16}
-                icon={<Heart />}
+                icon={<Heart
+                  color= {
+                    favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
+                  }  
+                />}
               />
             </TouchableOpacity>
           </View>
@@ -95,7 +99,11 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                   favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
                 }
                 size={FONTSIZE.size_16}
-                icon={<Heart />}
+                icon={<Heart 
+                  color= {
+                    favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
+                  }
+                />}
               />
             </TouchableOpacity>
           </View>

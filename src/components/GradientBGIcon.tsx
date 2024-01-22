@@ -6,7 +6,7 @@ import CustomIcon from './CustomIcon';
 
 interface GradientBGIconProps {
   name: string;
-  color: string;
+  color?: string;
   size: number;
   icon?: any;  
 }
