@@ -53,7 +53,7 @@ const CartScreen = ({navigation, route}: any) => {
             <HeaderBar title="Cart" />
 
             {CartList.length == 0 ? (
-              <EmptyListAnimation title={'Cart is Empty'} />
+              <EmptyListAnimation title={'O carrinho está vazio'} />
             ) : (
               <View style={styles.ListItemContainer}>
                 {CartList.map((data: any) => (
@@ -105,7 +105,7 @@ const CartScreen = ({navigation, route}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.backGroundWhite,
   },
   ScrollViewFlex: {
     flexGrow: 1,

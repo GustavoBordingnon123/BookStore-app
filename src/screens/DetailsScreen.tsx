@@ -121,8 +121,8 @@ const DetailsScreen = ({navigation, route}: any) => {
                   {
                     borderColor:
                       data.size == price.size
-                        ? COLORS.primaryOrangeHex
-                        : COLORS.primaryDarkGreyHex,
+                        ? COLORS.primaryBlackHex
+                        : COLORS.primaryBlueHex,
                   },
                 ]}>
                 <Text
@@ -135,8 +135,8 @@ const DetailsScreen = ({navigation, route}: any) => {
                           : FONTSIZE.size_16,
                       color:
                         data.size == price.size
-                          ? COLORS.primaryOrangeHex
-                          : COLORS.secondaryLightGreyHex,
+                          ? COLORS.primaryBlackHex
+                          : COLORS.primaryWhiteHex,
                     },
                   ]}>
                   {data.size}
@@ -169,7 +169,7 @@ const DetailsScreen = ({navigation, route}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.backGroundWhite,
   },
   ScrollViewFlex: {
     flexGrow: 1,
@@ -181,14 +181,14 @@ const styles = StyleSheet.create({
   InfoTitle: {
     fontFamily: FONTFAMILY.poppins_semibold,
     fontSize: FONTSIZE.size_16,
-    color: COLORS.primaryWhiteHex,
+    color: COLORS.primaryBlackHex,
     marginBottom: SPACING.space_10,
   },
   DescriptionText: {
     letterSpacing: 0.5,
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_14,
-    color: COLORS.primaryWhiteHex,
+    color: COLORS.secondaryBlackRGBA,
     marginBottom: SPACING.space_30,
   },
   SizeOuterContainer: {
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   },
   SizeBox: {
     flex: 1,
-    backgroundColor: COLORS.primaryDarkGreyHex,
+    backgroundColor: COLORS.primaryBlueHex,
     alignItems: 'center',
     justifyContent: 'center',
     height: SPACING.space_24 * 2,

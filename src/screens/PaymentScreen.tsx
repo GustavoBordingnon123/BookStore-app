@@ -109,7 +109,7 @@ const PaymentScreen = ({navigation, route}: any) => {
                 {
                   borderColor:
                     paymentMode == 'Credit Card'
-                      ? COLORS.primaryOrangeHex
+                      ? COLORS.primaryBlueHex
                       : COLORS.primaryGreyHex,
                 },
               ]}>
@@ -123,7 +123,7 @@ const PaymentScreen = ({navigation, route}: any) => {
                     <CustomIcon
                       name="chip"
                       size={FONTSIZE.size_20 * 2}
-                      color={COLORS.primaryOrangeHex}
+                      color={COLORS.primaryBlueHex}
                       icon={<Chip />}
                     />
                     <CustomIcon
@@ -188,7 +188,7 @@ const PaymentScreen = ({navigation, route}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.backGroundWhite,
   },
   LottieAnimation: {
     flex: 1,
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     marginLeft: SPACING.space_10,
   },
   CreditCardBG: {
-    backgroundColor: COLORS.primaryGreyHex,
+    backgroundColor: COLORS.secondaryBlueHex,
     borderRadius: BORDERRADIUS.radius_25,
   },
   LinearGradientStyle: {

@@ -36,7 +36,7 @@ const TabNavigator = () => {
               name="home"
               size={32}
               icon={<HomeIcon size={32} color= {
-                focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+                focused ? COLORS.primaryWhiteHex : COLORS.primaryLightGreyHex
               }
               />}
             />
@@ -51,7 +51,7 @@ const TabNavigator = () => {
                 name="cart"
                 size={25}
                 icon={<Bag size={24} color= {
-                  focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+                  focused ? COLORS.primaryWhiteHex : COLORS.primaryLightGreyHex
                 }
                 />}
               />
@@ -66,7 +66,7 @@ const TabNavigator = () => {
                 name="like"
                 size={25}
                 icon={<Heart size={32} color= {
-                  focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+                  focused ? COLORS.primaryWhiteHex : COLORS.primaryLightGreyHex
                 }
                 />}
               />
@@ -81,7 +81,7 @@ const TabNavigator = () => {
                 name="bell"
                 size={25}
                 icon={<Bell size={25} color= {
-                  focused ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex
+                  focused ? COLORS.primaryWhiteHex : COLORS.primaryLightGreyHex
                 }
                 />}
               />
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: COLORS.primaryDarkGreyHex
+    backgroundColor: COLORS.primaryBlueHex
   },
 });
 

@@ -207,6 +207,12 @@ export const useStore = create(
             state.CartList = [];
           }),
         ),
+        clearOrderHistory: () =>
+        set(
+          produce((state) => {
+            state.OrderHistoryList = [];
+          }),
+        ),
     }),
     {
       name: 'coffee-app',

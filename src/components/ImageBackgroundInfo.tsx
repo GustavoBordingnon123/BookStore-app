@@ -75,9 +75,6 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
               }}>
               <GradientBGIcon
                 name="like"
-                color={
-                  favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
-                }
                 size={FONTSIZE.size_16}
                 icon={<Heart
                   color= {
@@ -95,9 +92,6 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
               }}>
               <GradientBGIcon
                 name="like"
-                color={
-                  favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
-                }
                 size={FONTSIZE.size_16}
                 icon={<Heart 
                   color= {

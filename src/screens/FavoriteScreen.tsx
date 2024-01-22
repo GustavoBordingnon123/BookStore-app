@@ -78,7 +78,8 @@ const FavoritesScreen = ({navigation}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.backGroundWhite,
+    paddingBottom: SPACING.space_20,
   },
   ScrollViewFlex: {
     flexGrow: 1,

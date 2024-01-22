@@ -31,8 +31,8 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
         {
           borderColor:
             paymentMode == name
-              ? COLORS.primaryOrangeHex
-              : COLORS.primaryGreyHex,
+              ? COLORS.primaryBlackHex
+              : COLORS.primaryBlueHex,
         },
       ]}>
       {isIcon ? (
@@ -43,7 +43,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
           <View style={styles.WalletRow}>
             <CustomIcon
               name={'wallet'}
-              color={COLORS.primaryOrangeHex}
+              color={COLORS.primaryBlueHex}
               size={FONTSIZE.size_30}
               icon={<Wallet />}
             />
@@ -66,7 +66,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
 const styles = StyleSheet.create({
   PaymentCardContainer: {
     borderRadius: BORDERRADIUS.radius_15 * 2,
-    backgroundColor: COLORS.primaryGreyHex,
+    backgroundColor: COLORS.secondaryBlueHex,
     borderWidth: 3,
   },
   LinearGradientWallet: {

@@ -40,6 +40,7 @@ const getCategoriesFromData = (data: any) => {
   return categories;
 };
 
+
 const getCoffeeList = (category: string, data: any) => {
   if (category == 'All') {
     return data;
@@ -125,7 +126,9 @@ const HomeScreen = ({navigation}: any) => {
 
   return (
     <View style={styles.ScreenContainer}>
-      <StatusBar backgroundColor={COLORS.primaryBlackHex} />
+
+      <StatusBar backgroundColor={COLORS.primaryBlueHex} />
+      
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.ScrollViewFlex}>
@@ -155,13 +158,13 @@ const HomeScreen = ({navigation}: any) => {
             />
           </TouchableOpacity>
           <TextInput
-            placeholder="Find Your Coffee..."
+            placeholder="Encontre seu livro..."
             value={searchText}
             onChangeText={text => {
               setSearchText(text);
               searchCoffee(text);
             }}
-            placeholderTextColor={COLORS.primaryLightGreyHex}
+            placeholderTextColor={COLORS.primaryWhiteHex}
             style={styles.TextInputContainer}
           />
           {searchText.length > 0 ? (
@@ -206,7 +209,7 @@ const HomeScreen = ({navigation}: any) => {
                   style={[
                     styles.CategoryText,
                     categoryIndex.index == index
-                      ? {color: COLORS.primaryOrangeHex}
+                      ? {color: COLORS.primaryBlueHex}
                       : {},
                   ]}>
                   {data}
@@ -228,7 +231,7 @@ const HomeScreen = ({navigation}: any) => {
           horizontal
           ListEmptyComponent={
             <View style={styles.EmptyListContainer}>
-              <Text style={styles.CategoryText}>No Coffee Available</Text>
+              <Text style={styles.CategoryText}>Nenhum livro encontado.</Text>
             </View>
           }
           showsHorizontalScrollIndicator={false}
@@ -262,7 +265,7 @@ const HomeScreen = ({navigation}: any) => {
           }}
         />
 
-        <Text style={styles.CoffeeBeansTitle}>Coffee Beans</Text>
+        <Text style={styles.CoffeeBeansTitle}>Livros sugeridos</Text>
 
         {/* Beans Flatlist */}
 
@@ -309,7 +312,7 @@ const HomeScreen = ({navigation}: any) => {
 const styles = StyleSheet.create({
   ScreenContainer: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.backGroundWhite,
   },
   ScrollViewFlex: {
     flexGrow: 1,
@@ -317,15 +320,16 @@ const styles = StyleSheet.create({
   ScreenTitle: {
     fontSize: FONTSIZE.size_28,
     fontFamily: FONTFAMILY.poppins_semibold,
-    color: COLORS.primaryWhiteHex,
+    color: COLORS.primaryBlackHex,
     paddingLeft: SPACING.space_30,
   },
   InputContainerComponent: {
     flexDirection: 'row',
     margin: SPACING.space_30,
     borderRadius: BORDERRADIUS.radius_20,
-    backgroundColor: COLORS.primaryDarkGreyHex,
+    backgroundColor: COLORS.secondaryBlueHex,
     alignItems: 'center',
+    paddingLeft: SPACING.space_10,
   },
   InputIcon: {
     marginHorizontal: SPACING.space_20,
@@ -335,7 +339,7 @@ const styles = StyleSheet.create({
     height: SPACING.space_20 * 3,
     fontFamily: FONTFAMILY.poppins_medium,
     fontSize: FONTSIZE.size_14,
-    color: COLORS.primaryWhiteHex,
+    color: COLORS.backGroundWhite,
   },
   CategoryScrollViewStyle: {
     paddingHorizontal: SPACING.space_20,
@@ -357,7 +361,7 @@ const styles = StyleSheet.create({
     height: SPACING.space_10,
     width: SPACING.space_10,
     borderRadius: BORDERRADIUS.radius_10,
-    backgroundColor: COLORS.primaryOrangeHex,
+    backgroundColor: COLORS.primaryBlueHex,
   },
   FlatListContainer: {
     gap: SPACING.space_20,
@@ -375,7 +379,7 @@ const styles = StyleSheet.create({
     marginLeft: SPACING.space_30,
     marginTop: SPACING.space_20,
     fontFamily: FONTFAMILY.poppins_medium,
-    color: COLORS.secondaryLightGreyHex,
+    color: COLORS.primaryBlackHex,
   },
 });
 

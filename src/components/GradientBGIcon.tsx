@@ -29,11 +29,11 @@ const GradientBGIcon: React.FC<GradientBGIconProps> = ({name, color, size, icon}
 const styles = StyleSheet.create({
   Container: {
     borderWidth: 2,
-    borderColor: COLORS.secondaryDarkGreyHex,
+    borderColor: COLORS.secondaryBlueHex,
     borderRadius: SPACING.space_12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.secondaryDarkGreyHex,
+    backgroundColor: COLORS.secondaryBlueHex,
     overflow: 'hidden',
   },
   LinearGradientBG: {

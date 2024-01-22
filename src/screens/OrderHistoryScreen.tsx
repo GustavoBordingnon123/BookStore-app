@@ -25,6 +25,10 @@ import {
     const OrderHistoryList = useStore((state: any) => state.OrderHistoryList);
     const tabBarHeight = useBottomTabBarHeight();
     const [showAnimation, setShowAnimation] = useState(false);
+
+    const clearOrderHistory = useStore(
+      (state: any) => state.clearOrderHistory,
+    );
   
     const navigationHandler = ({index, id, type}: any) => {
       navigation.push('Details', {
@@ -36,6 +40,7 @@ import {
   
     const buttonPressHandler = () => {
       setShowAnimation(true);
+      clearOrderHistory();
       setTimeout(() => {
         setShowAnimation(false);
       }, 2000);
@@ -53,15 +58,15 @@ import {
         ) : (
           <></>
         )}
-  
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.ScrollViewFlex}>
           <View
             style={[styles.ScrollViewInnerView, {marginBottom: tabBarHeight}]}>
             <View style={styles.ItemContainer}>
-              <HeaderBar title="Order History" />
-  
+              <HeaderBar title="Historico de Pedidos" />
+
               {OrderHistoryList.length == 0 ? (
                 <EmptyListAnimation title={'No Order History'} />
               ) : (
@@ -98,7 +103,7 @@ import {
   const styles = StyleSheet.create({
     ScreenContainer: {
       flex: 1,
-      backgroundColor: COLORS.primaryBlackHex,
+      backgroundColor: COLORS.backGroundWhite,
     },
     LottieAnimation: {
       height: 250,

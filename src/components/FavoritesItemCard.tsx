@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   ContainerLinearGradient: {
     gap: SPACING.space_10,
     padding: SPACING.space_20,
+    backgroundColor: COLORS.secondaryBlueHex,
   },
   DescriptionTitle: {
     fontFamily: FONTFAMILY.poppins_semibold,

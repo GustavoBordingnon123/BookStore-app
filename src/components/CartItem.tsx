@@ -188,7 +188,7 @@ const CartItem: React.FC<CartItemProps> = ({
 
 const styles = StyleSheet.create({
   CartItemBody: {
-    backgroundColor: COLORS.secondaryGreyHex,
+    backgroundColor: COLORS.primaryBlueHex,
     borderRadius: BORDERRADIUS.radius_25,
   },
   CartItemLinearGradient: {
@@ -216,11 +216,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_medium,
     fontSize: FONTSIZE.size_18,
     color: COLORS.primaryWhiteHex,
+    fontWeight: 'bold',
   },
   CartItemSubtitle: {
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_12,
-    color: COLORS.secondaryLightGreyHex,
+    color: COLORS.primaryWhiteHex,
   },
   CartItemRoastedContainer: {
     height: 50,
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   SizeBox: {
-    backgroundColor: COLORS.primaryDarkGreyHex,
+    backgroundColor: COLORS.secondaryBlueHex,
     height: 40,
     width: 100,
     borderRadius: BORDERRADIUS.radius_10,
@@ -258,27 +259,27 @@ const styles = StyleSheet.create({
   },
   SizeText: {
     fontFamily: FONTFAMILY.poppins_medium,
-    color: COLORS.secondaryLightGreyHex,
+    color: COLORS.primaryWhiteHex,
   },
   SizeCurrency: {
     fontFamily: FONTFAMILY.poppins_semibold,
     fontSize: FONTSIZE.size_18,
-    color: COLORS.primaryOrangeHex,
+    color: COLORS.primaryWhiteHex,
   },
   SizePrice: {
     color: COLORS.primaryWhiteHex,
   },
   CartItemIcon: {
-    backgroundColor: COLORS.primaryOrangeHex,
+    backgroundColor: COLORS.secondaryBlueHex,
     padding: SPACING.space_2,
     borderRadius: BORDERRADIUS.radius_10,
   },
   CartItemQuantityContainer: {
-    backgroundColor: COLORS.primaryBlackHex,
+    backgroundColor: COLORS.secondaryBlueHex,
     width: 80,
     borderRadius: BORDERRADIUS.radius_10,
     borderWidth: 2,
-    borderColor: COLORS.primaryOrangeHex,
+    borderColor: COLORS.secondaryBlueHex,
     alignItems: 'center',
     paddingVertical: SPACING.space_4,
   },

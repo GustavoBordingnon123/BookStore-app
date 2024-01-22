@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: SPACING.space_20,
     padding: SPACING.space_20,
+    backgroundColor: COLORS.secondaryBlueHex,
   },
   PriceContainer: {
     alignItems: 'center',
@@ -56,18 +57,19 @@ const styles = StyleSheet.create({
   PriceTitle: {
     fontFamily: FONTFAMILY.poppins_medium,
     fontSize: FONTSIZE.size_14,
-    color: COLORS.secondaryLightGreyHex,
+    color: COLORS.primaryWhiteHex,
+    fontWeight: 'bold',
   },
   PriceText: {
     fontFamily: FONTFAMILY.poppins_semibold,
     fontSize: FONTSIZE.size_24,
-    color: COLORS.primaryOrangeHex,
+    color: COLORS.primaryWhiteHex,
   },
   Price: {
     color: COLORS.primaryWhiteHex,
   },
   PayButton: {
-    backgroundColor: COLORS.primaryOrangeHex,
+    backgroundColor: COLORS.primaryBlueHex,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
