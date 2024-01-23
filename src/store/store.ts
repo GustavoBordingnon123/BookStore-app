@@ -2,21 +2,27 @@ import {create} from 'zustand';
 import {produce} from 'immer';
 import {persist, createJSONStorage} from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CoffeeData from '../data/CoffeeData';
-import BeansData from '../data/BeansData';
+import GetProducts from '../../actions/getProducts';
 
 export const useStore = create(
   persist(
     (set, get) => ({
-      CoffeeList: CoffeeData,
-      BeanList: BeansData,
+      CoffeeList: [],
+      BeanList: [],
       CartPrice: 0,
       FavoritesList: [],
       CartList: [],
       OrderHistoryList: [],
       addToCart: (cartItem: any) =>
         set(
-          produce(state => {
+          produce(async state => {
+
+            const coffeeData = await GetProducts({ categoryId: '' });
+            const beanData = await GetProducts({ categoryId: '' });
+
+            state.CoffeeList = coffeeData;
+            state.BeanList = beanData;
+            
             let found = false;
             for (let i = 0; i < state.CartList.length; i++) {
               if (state.CartList[i].id == cartItem.id) {

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ScrollView,
   StatusBar,
@@ -9,92 +9,112 @@ import {
   View,
   ToastAndroid,
 } from 'react-native';
-import {useStore} from '../store/store';
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import {
-  BORDERRADIUS,
-  COLORS,
-  FONTFAMILY,
-  FONTSIZE,
-  SPACING,
-} from '../theme/theme';
+import { useStore } from '../store/store';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from '../theme/theme';
 import HeaderBar from '../components/HeaderBar';
 import CustomIcon from '../components/CustomIcon';
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 import CoffeeCard from '../components/CoffeeCard';
-import {Dimensions} from 'react-native';
-
+import { Dimensions } from 'react-native';
 import Search from '../assets/icons/search';
+import GetCategories from '../../actions/getCategories';
+import getProducts from '../../actions/getProducts';
+import { Product } from '../../types';
 
-const getCategoriesFromData = (data: any) => {
-  let temp: any = {};
-  for (let i = 0; i < data.length; i++) {
-    if (temp[data[i].name] == undefined) {
-      temp[data[i].name] = 1;
-    } else {
-      temp[data[i].name]++;
-    }
-  }
-  let categories = Object.keys(temp);
-  categories.unshift('All');
-  return categories;
-};
+interface Category {
+  name: string;
+}
 
-
-const getCoffeeList = (category: string, data: any) => {
-  if (category == 'All') {
-    return data;
-  } else {
-    let coffeelist = data.filter((item: any) => item.name == category);
-    return coffeelist;
-  }
-};
-
-const HomeScreen = ({navigation}: any) => {
-  const CoffeeList = useStore((state: any) => state.CoffeeList);
-  const BeanList = useStore((state: any) => state.BeanList);
+const HomeScreen = ({ navigation }: any) => {
+  
+  const BookList = useStore((state: any) => state.BookList);
   const addToCart = useStore((state: any) => state.addToCart);
   const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
 
-  const [categories, setCategories] = useState(
-    getCategoriesFromData(CoffeeList),
-  );
+  const [categories, setCategories] = useState<string[]>([]);
+  const [allBooks, setAllBooks] = useState<any[]>([]); // [
   const [searchText, setSearchText] = useState('');
   const [categoryIndex, setCategoryIndex] = useState({
     index: 0,
     category: categories[0],
   });
-  const [sortedCoffee, setSortedCoffee] = useState(
-    getCoffeeList(categoryIndex.category, CoffeeList),
+
+  const getBookByCategory = (category: string, data: any) => {
+    if (!data) {
+      return [];
+    }
+
+    if (category === 'All') {
+      return data;
+    } else {
+      return data.filter((item: any) =>
+        item?.category?.name === category || !item?.category
+      );
+    }
+  };
+
+
+  const [sortedBook, setsortedBook] = useState(
+    getBookByCategory(categoryIndex.category, BookList),
   );
 
   const ListRef: any = useRef<FlatList>();
   const tabBarHeight = useBottomTabBarHeight();
 
-  const searchCoffee = (search: string) => {
-    if (search != '') {
-      ListRef?.current?.scrollToOffset({
-        animated: true,
-        offset: 0,
-      });
-      setCategoryIndex({index: 0, category: categories[0]});
-      setSortedCoffee([
-        ...CoffeeList.filter((item: any) =>
-          item.name.toLowerCase().includes(search.toLowerCase()),
-        ),
-      ]);
+  const fetchCategories = async () => {
+    try {
+      const categoriesFromApi: Category[] = await GetCategories();
+      setCategories(['All', ...categoriesFromApi.map(category => category.name)]);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
     }
   };
 
-  const resetSearchCoffee = () => {
-    ListRef?.current?.scrollToOffset({
-      animated: true,
-      offset: 0,
-    });
-    setCategoryIndex({index: 0, category: categories[0]});
-    setSortedCoffee([...CoffeeList]);
-    setSearchText('');
-  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+
+        const books: Product[] = await getProducts({ isFeatured: true });
+        setsortedBook([...books]);
+        setAllBooks([...books]);
+
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // const searchCoffee = (search: string) => {
+  //   if (search !== '') {
+  //     ListRef?.current?.scrollToOffset({
+  //       animated: true,
+  //       offset: 0,
+  //     });
+  //     setCategoryIndex({ index: 0, category: categories[0] });
+  //     setsortedBook([
+  //       ...BookList.filter((item: any) =>
+  //         item?.name.toLowerCase().includes(search.toLowerCase()),
+  //       ),
+  //     ]);
+  //   }
+  // };
+
+  // const resetSearchCoffee = () => {
+  //   ListRef?.current?.scrollToOffset({
+  //     animated: true,
+  //     offset: 0,
+  //   });
+  //   setCategoryIndex({ index: 0, category: categories[0] });
+  //   setsortedBook([...BookList]);
+  //   setSearchText('');
+  // };
 
   const CoffeCardAddToCart = ({
     id,
@@ -126,26 +146,25 @@ const HomeScreen = ({navigation}: any) => {
 
   return (
     <View style={styles.ScreenContainer}>
-
       <StatusBar backgroundColor={COLORS.primaryBlueHex} />
-      
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.ScrollViewFlex}>
+        contentContainerStyle={styles.ScrollViewFlex}
+      >
         {/* App Header */}
-        <HeaderBar />
+        <HeaderBar title='BookStore' />
 
         <Text style={styles.ScreenTitle}>
-          Find the best{'\n'}coffee for you
+          Encontre o livro{'\n'}ideal para você!
         </Text>
 
         {/* Search Input */}
-
         <View style={styles.InputContainerComponent}>
           <TouchableOpacity
             onPress={() => {
-              searchCoffee(searchText);
-            }}>
+              // searchCoffee(searchText);
+            }}
+          >
             <CustomIcon
               name="search"
               size={FONTSIZE.size_18}
@@ -162,7 +181,7 @@ const HomeScreen = ({navigation}: any) => {
             value={searchText}
             onChangeText={text => {
               setSearchText(text);
-              searchCoffee(text);
+              // searchCoffee(text);
             }}
             placeholderTextColor={COLORS.primaryWhiteHex}
             style={styles.TextInputContainer}
@@ -170,8 +189,9 @@ const HomeScreen = ({navigation}: any) => {
           {searchText.length > 0 ? (
             <TouchableOpacity
               onPress={() => {
-                resetSearchCoffee();
-              }}>
+                // resetSearchCoffee();
+              }}
+            >
               <CustomIcon
                 name="close"
                 size={FONTSIZE.size_16}
@@ -184,15 +204,16 @@ const HomeScreen = ({navigation}: any) => {
         </View>
 
         {/* Category Scroller */}
-
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.CategoryScrollViewStyle}>
-          {categories.map((data, index) => (
+          contentContainerStyle={styles.CategoryScrollViewStyle}
+        >
+          {categories.map((category, index) => (
             <View
               key={index.toString()}
-              style={styles.CategoryScrollViewContainer}>
+              style={styles.CategoryScrollViewContainer}
+            >
               <TouchableOpacity
                 style={styles.CategoryScrollViewItem}
                 onPress={() => {
@@ -200,21 +221,23 @@ const HomeScreen = ({navigation}: any) => {
                     animated: true,
                     offset: 0,
                   });
-                  setCategoryIndex({index: index, category: categories[index]});
-                  setSortedCoffee([
-                    ...getCoffeeList(categories[index], CoffeeList),
+                  setCategoryIndex({ index: index, category: categories[index] });
+                  setsortedBook([
+                    ...getBookByCategory(category, allBooks),
                   ]);
-                }}>
+                }}
+              >
                 <Text
                   style={[
                     styles.CategoryText,
-                    categoryIndex.index == index
-                      ? {color: COLORS.primaryBlueHex}
+                    categoryIndex.index === index
+                      ? { color: COLORS.primaryBlueHex }
                       : {},
-                  ]}>
-                  {data}
+                  ]}
+                >
+                  {category}
                 </Text>
-                {categoryIndex.index == index ? (
+                {categoryIndex.index === index ? (
                   <View style={styles.ActiveCategory} />
                 ) : (
                   <></>
@@ -225,84 +248,80 @@ const HomeScreen = ({navigation}: any) => {
         </ScrollView>
 
         {/* Coffee Flatlist */}
-
         <FlatList
           ref={ListRef}
           horizontal
           ListEmptyComponent={
             <View style={styles.EmptyListContainer}>
-              <Text style={styles.CategoryText}>Nenhum livro encontado.</Text>
+              <Text style={styles.CategoryText}>Nenhum livro encontrado.</Text>
             </View>
           }
           showsHorizontalScrollIndicator={false}
-          data={sortedCoffee}
+          data={sortedBook}
           contentContainerStyle={styles.FlatListContainer}
           keyExtractor={item => item.id}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.push('Details', {
-                    index: item.index,
-                    id: item.id,
-                    type: item.type,
-                  });
-                }}>
-                <CoffeeCard
-                  id={item.id}
-                  index={item.index}
-                  type={item.type}
-                  roasted={item.roasted}
-                  imagelink_square={item.imagelink_square}
-                  name={item.name}
-                  special_ingredient={item.special_ingredient}
-                  average_rating={item.average_rating}
-                  price={item.prices[2]}
-                  buttonPressHandler={CoffeCardAddToCart}
-                />
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('Details', {
+                  index: item.id,
+                  id: item.id,
+                  type: item.name,
+                });
+              }}
+            >
+              <CoffeeCard
+                id={item.id}
+                index={item.id}
+                type={item.name}
+                roasted={item.name}
+                imagelink_square={item.images[0]}
+                name={item.name}
+                category={item.category?.name}
+                average_rating={4.5} // Use a propriedade real do livro se existir
+                price={item.price}
+                buttonPressHandler={CoffeCardAddToCart}
+              />
+            </TouchableOpacity>
+          )}
         />
 
         <Text style={styles.CoffeeBeansTitle}>Livros sugeridos</Text>
 
         {/* Beans Flatlist */}
-
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={BeanList}
+          data={sortedBook}
           contentContainerStyle={[
             styles.FlatListContainer,
-            {marginBottom: tabBarHeight},
+            { marginBottom: tabBarHeight },
           ]}
           keyExtractor={item => item.id}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.push('Details', {
-                    index: item.index,
-                    id: item.id,
-                    type: item.type,
-                  });
-                }}>
-                <CoffeeCard
-                  id={item.id}
-                  index={item.index}
-                  type={item.type}
-                  roasted={item.roasted}
-                  imagelink_square={item.imagelink_square}
-                  name={item.name}
-                  special_ingredient={item.special_ingredient}
-                  average_rating={item.average_rating}
-                  price={item.prices[2]}
-                  buttonPressHandler={CoffeCardAddToCart}
-                />
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('Details', {
+                  index: item.id,
+                  id: item.id,
+                  type: item.name,
+                });
+              }}
+            >
+              <CoffeeCard
+                id={item.id}
+                index={item.id}
+                type={item.name}
+                roasted={item.name}
+                imagelink_square={item.images[0]}
+                name={item.name}
+                category={item.category?.name}
+                average_rating={4.5} // Use a propriedade real do livro se existir
+                price={item.price}
+                buttonPressHandler={CoffeCardAddToCart}
+              />
+            </TouchableOpacity>
+          )}
         />
       </ScrollView>
     </View>

@@ -21,16 +21,16 @@ import BGIcon from './BGIcon';
 import PlusIcon from '../assets/icons/plus';
 import Star from '../assets/icons/star';
 
-const CARD_WIDTH = Dimensions.get('window').width * 0.32;
+const CARD_WIDTH = Dimensions.get('window').width * 0.5;
 
 interface CoffeeCardProps {
   id: string;
-  index: number;
+  index: string;
   type: string;
   roasted: string;
-  imagelink_square: ImageProps;
+  imagelink_square: {url: string};
   name: string;
-  special_ingredient: string;
+  category: string;
   average_rating: number;
   price: any;
   buttonPressHandler: any;
@@ -43,15 +43,16 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({
   roasted,
   imagelink_square,
   name,
-  special_ingredient,
+  category,
   average_rating,
   price,
   buttonPressHandler,
 }) => {
+  
   return (
     <View style={styles.CoffeeCardBody}>
       <ImageBackground
-        source={imagelink_square}
+        source={{uri: imagelink_square.url}}
         style={styles.CardImageBG}
         resizeMode="cover">
         <View style={styles.CardRatingContainer}>
@@ -64,10 +65,10 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({
         </View>
       </ImageBackground>
       <Text style={styles.CardTitle}>{name}</Text>
-      <Text style={styles.CardSubtitle}>{special_ingredient}</Text>
+      <Text style={styles.CardSubtitle}>{category}</Text>
       <View style={styles.CardFooterRow}>
         <Text style={styles.CardPriceCurrency}>
-          $ <Text style={styles.CardPrice}>{price.price}</Text>
+          $ <Text style={styles.CardPrice}>{price}</Text>
         </Text>
         <TouchableOpacity
           onPress={() => {
@@ -78,7 +79,7 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({
               roasted,
               imagelink_square,
               name,
-              special_ingredient,
+              category,
               prices: [{...price, quantity: 1}],
             });
           }}>
@@ -134,12 +135,14 @@ const styles = StyleSheet.create({
   CardTitle: {
     fontFamily: FONTFAMILY.poppins_medium,
     color: COLORS.primaryWhiteHex,
-    fontSize: FONTSIZE.size_16,
+    fontSize: FONTSIZE.size_20,
+    maxWidth: 130,
+    height: 60,
   },
   CardSubtitle: {
     fontFamily: FONTFAMILY.poppins_light,
     color: COLORS.primaryWhiteHex,
-    fontSize: FONTSIZE.size_10,
+    fontSize: FONTSIZE.size_16,
   },
   CardFooterRow: {
     flexDirection: 'row',
